@@ -7,10 +7,11 @@
     <div class="mu-tabs-content" ref="container">
       <keep-alive>
         <swiper
+          ref="slider"
           v-model="active"
           @on-index-change="(index) => this.active = index"
           :show-dots="false"
-          height="full"
+          height="auto"
           :threshold="150"
         >
           <swiper-item v-for="tab of tabs" :key="tab.name">
@@ -29,11 +30,11 @@
   import { getTopics, getTopic } from '@/api/modules/topic'
 
   const tabs = [
-    { title: '首页', path: '/home/all', name: 'all', topics: [], page: 1 },
-    { title: '精华', path: '/home/good', name: 'good', topics: [], page: 1 },
-    { title: '分享', path: '/home/share', name: 'share', topics: [], page: 1 },
-    { title: '问答', path: '/home/ask', name: 'ask', topics: [], page: 1 },
-    { title: '招聘', path: '/home/job', name: 'job', topics: [], page: 1 }
+    { title: '首页', path: '/home/all', name: 'all', topics: [], page: 1, scrollTop: 0 },
+    { title: '精华', path: '/home/good', name: 'good', topics: [], page: 1, scrollTop: 0 },
+    { title: '分享', path: '/home/share', name: 'share', topics: [], page: 1, scrollTop: 0 },
+    { title: '问答', path: '/home/ask', name: 'ask', topics: [], page: 1, scrollTop: 0 },
+    { title: '招聘', path: '/home/job', name: 'job', topics: [], page: 1, scrollTop: 0 }
   ]
 
   export default {
@@ -72,6 +73,24 @@
     },
     mounted () {
       this.getTopics()
+    },
+    /**
+     * 保持组件滚动条位置.
+     * @param to
+     * @param from
+     * @param next
+     */
+    beforeRouteEnter (to, from, next) {
+      // 在渲染该组件的对应路由被 confirm 前调用
+      // 不！能！获取组件实例 `this`
+      // 因为当守卫执行前，组件实例还没被创建
+      next(vm => {
+        vm.$refs.slider.$el.scrollTo(0, vm.activeTab.scrollTop)
+      })
+    },
+    beforeRouteLeave (to, from, next) {
+      this.activeTab.scrollTop = this.$refs.slider.$el.scrollTop
+      next()
     }
   }
 </script>

@@ -126,6 +126,7 @@
         this.swiper && this.swiper.destroy()
       },
       getHeight () {
+        if (this.height === 'auto') return 'auto'
         if (this.height === 'full') return '100%'
         const hasHeight = parseInt(this.height, 10)
         if (hasHeight) return this.height
@@ -239,7 +240,8 @@
 <style lang="stylus">
   .slider
     height 100%
-    overflow hidden
+    /*overflow hidden*/
+    overflow-y auto
     position relative
 
     > .indicator, .indicator-right
@@ -271,7 +273,7 @@
       right auto
 
     > .swiper
-      overflow hidden
+      /*overflow hidden*/
       position relative
 
       > .swiper-item
@@ -280,7 +282,7 @@
         left 0
         width 100%
         height 100%
-        overflow-y auto
+        /*overflow-y auto*/
 
         > a
           display block
