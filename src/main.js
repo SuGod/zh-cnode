@@ -98,7 +98,7 @@ Vue.config.productionTip = false
 
 // document.addEventListener('touchmove', e => e.preventDefault(), false)
 
-//注册filter
+// 注册filter
 registerFilter(Vue)
 // 注册指令
 registerDirective(Vue)

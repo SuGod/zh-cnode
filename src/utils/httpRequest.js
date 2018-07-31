@@ -48,7 +48,7 @@ class httpRequest {
         if (data.hasOwnProperty('success') && data.success) {
           return data.data
         }
-        /*if (data.code !== 200) {
+        /* if (data.code !== 200) {
           if (data.code === 401) {
             TokenUtils.clearToken()
             window.location.href = '/#/login'
@@ -57,7 +57,7 @@ class httpRequest {
             if (data.msg) Toast.error(data.msg)
           }
           return false
-        }*/
+        } */
       }
       return data
     }, (error) => {

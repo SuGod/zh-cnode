@@ -7,7 +7,7 @@
     ref="container"
   >
     <template v-for="topic in topics">
-      <mu-ripple class="topic-box" @click.native="toDetail(topic.id)">
+      <mu-ripple class="topic-box" @click.native="toDetail(topic.id)" :key="topic.id">
         <mu-flex class="topic-header" justify-content="between">
           <mu-flex class="topic-author">
             <mu-avatar class="author-avatar" :size="18"><img :src="topic.author.avatar_url"></mu-avatar>
@@ -34,32 +34,32 @@
 </template>
 
 <script>
-  const types = { share: '分享', ask: '问答', job: '招聘', good: '精华', top: '置顶' }
-  export default {
-    props: {
-      topics: {
-        type: Array,
-        require: true
-      },
-      loading: {
-        type: Boolean,
-        default: false
-      }
+const types = { share: '分享', ask: '问答', job: '招聘', good: '精华', top: '置顶' }
+export default {
+  props: {
+    topics: {
+      type: Array,
+      require: true
     },
-    filters: {
-      typeFmt: val => types[val]
-    },
-    data () {
-      return {
-        refreshing: false,
-      }
-    },
-    methods: {
-      toDetail (id) {
-        this.$router.push({ path: `/topic/${id}` })
-      }
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  filters: {
+    typeFmt: val => types[val]
+  },
+  data () {
+    return {
+      refreshing: false
+    }
+  },
+  methods: {
+    toDetail (id) {
+      this.$router.push({ path: `/topic/${id}` })
     }
   }
+}
 </script>
 
 <style scoped lang="stylus">
@@ -107,6 +107,5 @@
       top 0.2rem
   &:after
     border-right 1px solid grey*/
-
 
 </style>

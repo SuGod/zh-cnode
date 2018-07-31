@@ -5,18 +5,18 @@
 </template>
 
 <script>
-  export default {
-    name: 'swiper-item',
-    mounted () {
-      this.$nextTick(() => {
-        this.$parent.rerender()
-      })
-    },
-    beforeDestroy () {
-      const $parent = this.$parent
-      this.$nextTick(() => {
-        $parent.rerender()
-      })
-    }
+export default {
+  name: 'swiper-item',
+  mounted () {
+    this.$nextTick(() => {
+      this.$parent.rerender()
+    })
+  },
+  beforeDestroy () {
+    const $parent = this.$parent
+    this.$nextTick(() => {
+      $parent.rerender()
+    })
   }
+}
 </script>

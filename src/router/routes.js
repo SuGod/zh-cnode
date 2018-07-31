@@ -14,7 +14,7 @@ export default [
         path: 'home',
         name: 'home',
         mate: {},
-        component: () => _import('home'),
+        component: () => _import('home')
       },
       {
         path: 'about',

@@ -5,11 +5,6 @@
     </keep-alive>
   </transition>
 </template>
-<script>
-
-
-  export default {}
-</script>
 
 <style lang="stylus">
   size()
@@ -19,6 +14,7 @@
   html, body
     size()
     overflow-x hidden
+
   /*overflow hidden*/
 
   #app

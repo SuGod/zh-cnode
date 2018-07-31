@@ -7,14 +7,14 @@
 </template>
 
 <script>
-  import { Swiper, SwiperItem } from '@/components/swiper/'
+import { Swiper, SwiperItem } from '@/components/swiper/'
 
-  export default {
-    components: { Swiper, SwiperItem },
-    data () {
-      return {
-        index: 0
-      }
-    },
+export default {
+  components: { Swiper, SwiperItem },
+  data () {
+    return {
+      index: 0
+    }
   }
+}
 </script>

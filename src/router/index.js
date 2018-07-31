@@ -6,8 +6,7 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  routes,
-  //scrollBehavior: (to, from, savedPosition) => console.log(savedPosition,'scroll') /*savedPosition || { x: 0, y: 0 }*/
+  routes
 })
 /**
  * 全局路由守卫等.

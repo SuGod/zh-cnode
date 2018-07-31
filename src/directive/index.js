@@ -1,7 +1,7 @@
 import directives from './directives'
 
 const registerFilter = Vue => {
-  //注册指令
+  // 注册指令
   Vue.directive('highlight', directives.highlight)
 }
 

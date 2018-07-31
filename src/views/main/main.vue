@@ -13,14 +13,14 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        shift: 'home',
-        open: false
-      }
+export default {
+  data () {
+    return {
+      shift: 'home',
+      open: false
     }
   }
+}
 </script>
 
 <style scoped lang="stylus">

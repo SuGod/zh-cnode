@@ -8,7 +8,7 @@ const filters = {
     // return moment(input).format(fmtString)
     return moment(value).fromNow()
   },
-  getIntro (value,len) {
+  getIntro (value, len) {
     return value.replace(/<[^>]*>|/g, '').trim().substring(0, len)
   }
 }
