@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/assets/styles/global.styl'
+
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // require styles
 // import 'swiper/dist/css/swiper.css'
@@ -15,14 +17,8 @@ import 'typeface-roboto'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
-/**
- * 切换主题
- * theme.add(name, config, extendName) 添加新的主题
- */
-// import theme from 'muse-ui/lib/theme'
-/**
- * muse-ui plugins
- */
+//主题
+import theme from 'muse-ui/lib/theme'
 // 全局加载进度条
 import NProgress from 'muse-ui-progress'
 import 'muse-ui-progress/dist/muse-ui-progress.css'
@@ -102,6 +98,12 @@ Vue.config.productionTip = false
 registerFilter(Vue)
 // 注册指令
 registerDirective(Vue)
+
+/**
+ * 切换主题
+ */
+
+theme.use(eval(localStorage.getItem('darkTheme')) ? 'dark' : 'light')
 
 new Vue({
   router,

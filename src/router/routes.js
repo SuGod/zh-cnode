@@ -17,22 +17,16 @@ export default [
         component: () => _import('home')
       },
       {
-        path: 'about',
-        name: 'about',
+        path: 'user',
+        name: 'user',
         mate: {},
-        component: () => _import('about')
+        component: () => _import('user/user-center')
       },
       {
-        path: 'test1',
-        name: 'test1',
+        path: 'search',
+        name: 'search',
         mate: {},
-        component: () => _import('t/t1')
-      },
-      {
-        path: 'test2',
-        name: 'test2',
-        mate: {},
-        component: () => _import('t/t2')
+        component: () => _import('search/search')
       }
     ]
   },
@@ -40,6 +34,6 @@ export default [
     path: '/topic/:id',
     name: 'topicDetail',
     mate: {},
-    component: () => _import('topic/topic-detail')
+    component: () => _import('home/components/topic-detail')
   }
 ]

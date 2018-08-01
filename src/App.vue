@@ -13,9 +13,7 @@
 
   html, body
     size()
-    overflow-x hidden
-
-  /*overflow hidden*/
+    overflow hidden
 
   #app
     size()

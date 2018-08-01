@@ -24,7 +24,7 @@
           <div class="topic-content">{{topic.content | getIntro(50)}}</div>
         </div>
         <div class="topic-footer">
-          <span><mu-icon value="reply"></mu-icon> {{topic.reply_count}}</span>
+          <span><mu-icon value="comment"></mu-icon> {{topic.reply_count}}</span>
           <span><mu-icon value="visibility"></mu-icon> {{topic.visit_count}}</span>
           <span><mu-icon value="access_time"></mu-icon> {{topic.create_at | dateFmt}}</span>
         </div>
@@ -87,7 +87,7 @@ export default {
         font-size .8rem
         margin-right 1em
         & > i.mu-icon
-          font-size .8rem
+          font-size 1rem
           margin-right .3em
           color: #ccc
 

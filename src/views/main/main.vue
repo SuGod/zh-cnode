@@ -5,9 +5,8 @@
     </div>
     <mu-bottom-nav class="bottom-nav" :value.sync="shift" shift color="primary">
       <mu-bottom-nav-item to="home" value="home" title="Home" icon="account_balance"></mu-bottom-nav-item>
-      <mu-bottom-nav-item to="about" value="about" title="About" icon="person"></mu-bottom-nav-item>
-      <mu-bottom-nav-item to="test1" value="test1" title="Test1" icon="looks_one"></mu-bottom-nav-item>
-      <mu-bottom-nav-item to="test2" value="test2" title="Test2" icon="looks_two"></mu-bottom-nav-item>
+      <mu-bottom-nav-item to="search" value="search" title="Search" icon="search"></mu-bottom-nav-item>
+      <mu-bottom-nav-item to="user" value="user" title="User" icon="person"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>
 </template>
@@ -16,8 +15,7 @@
 export default {
   data () {
     return {
-      shift: 'home',
-      open: false
+      shift: this.$route.name
     }
   }
 }

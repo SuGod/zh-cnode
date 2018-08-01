@@ -3,19 +3,19 @@ import theme from 'muse-ui/lib/theme'
 export default {
   state: {
     version: 0.1,
-    systemTheme: localStorage.getItem('theme') || 'light'
+    darkTheme: eval(localStorage.getItem('darkTheme'))
   },
   mutations: {
     switchTheme (state, themeName) {
-      state.systemTheme = themeName
+      state.darkTheme = themeName
     }
   },
   actions: {
     switchTheme (context, isDark) {
-      let themeName = isDark ? 'dark' : 'light'
-      theme.use(themeName)
-      localStorage.setItem('theme', themeName)
-      context.commit('switchTheme', themeName)
+      console.log(isDark)
+      localStorage.setItem('darkTheme', isDark)
+      context.commit('switchTheme', isDark)
+      theme.use(isDark ? 'dark' : 'light')
     }
   }
 }

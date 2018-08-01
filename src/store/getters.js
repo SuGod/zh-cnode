@@ -1,4 +1,5 @@
 export default {
   version: state => state.app.version,
-  systemTheme: state => state.app.systemTheme
+  darkTheme: state => state.app.darkTheme,
+  accesstoken: state => state.user.accesstoken
 }
