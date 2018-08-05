@@ -12,29 +12,33 @@ class httpRequest {
     // 存储请求队列
     this.queue = {}
   }
-
+  
   // 销毁请求实例
   destroy (url) {
     delete this.queue[url]
     const queue = Object.keys(this.queue)
     return queue.length
   }
-
+  
   // 请求拦截
   interceptors (instance, url) {
     // 添加请求拦截器
     instance.interceptors.request.use(config => {
-      // if (!config.url.includes('/users')) {}
-      // Spin.show()
-      // 在发送请求之前做些什么
-      // 获取并添加 token
-      config.headers[TokenUtils.TokenKey] = TokenUtils.getToken()
+      let accesstoken = TokenUtils.getToken()
+      
+      if (config.method === 'post') {
+        if (accesstoken) {
+          config.data = { ...config.data, accesstoken }
+        } else {
+          return reject('请登录后再操作.')
+        }
+      }
       return config
     }, error => {
       // 对请求错误做些什么
       return Promise.reject(error)
     })
-
+    
     // 添加响应拦截器
     instance.interceptors.response.use(res => {
       let { data } = res
@@ -66,7 +70,7 @@ class httpRequest {
       return Promise.reject(error)
     })
   }
-
+  
   // 创建实例
   static create () {
     let conf = {
@@ -79,12 +83,12 @@ class httpRequest {
     }
     return axios.create(conf)
   }
-
+  
   // 合并请求实例
   /* mergeReqest (instances = []) {
     //
   } */
-
+  
   // 请求实例
   request (options) {
     let instance = httpRequest.create()

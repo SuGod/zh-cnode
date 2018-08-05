@@ -13,7 +13,7 @@
             <div class="reply-content" v-html="reply.content" v-highlight></div>
             <div class="reply-info">
             <span @click="$emit('onPraise',reply.id)">
-              <mu-icon :value="reply.is_uped | toIconName"/>
+              <mu-icon :value="reply.ups.indexOf(userInfo.id) === -1 ? 'favorite_border' : 'favorite'"/>
               <span>{{reply.ups.length}}</span>
             </span>
               <span><mu-icon value="access_time"/> <span>{{reply.create_at | dateFmt}}</span></span>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -40,17 +41,15 @@ export default {
       required: true
     }
   },
-  filters: {
-    toIconName (val) {
-      return val ? 'favorite' : 'favorite_border'
-    }
+  computed: {
+    ...mapGetters(['userInfo'])
   }
 }
 </script>
 
 <style scoped lang="stylus">
   .reply-list
-    padding 0 10px
+    padding 10px
     .no-reply
       display flex
       flex-direction column

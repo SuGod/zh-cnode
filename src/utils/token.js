@@ -3,7 +3,7 @@
  * @type {string}
  */
 
-export const TokenKey = 'AccessToken'
+export const TokenKey = 'accesstoken'
 
 /**
  * 获取token

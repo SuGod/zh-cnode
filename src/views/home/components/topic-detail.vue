@@ -15,10 +15,14 @@
     <mu-card class="topic-card-content" ref="contentCard">
       <mu-card-title class="topic-title" :title="topic.title" :sub-title="topic.create_at | dateFmt"/>
       <mu-container class="topic-content" v-html="topic.content" v-highlight/>
-      <mu-ripple class="topic-reply-btn">
-        <mu-avatar><img :src="topic.author.avatar_url"></mu-avatar>
-        <span style="font-size: 1rem;color: #999;margin-left: .5rem">说点什么吧...</span>
-      </mu-ripple>
+      <div class="topic-reply-btn">
+        <!--<mu-avatar><img :src="topic.author.avatar_url"></mu-avatar>-->
+        <!--<span style="font-size: 1rem;color: #999;margin-left: .5rem">说点什么吧...</span>-->
+        <mu-text-field class="reply-input" v-model="reply" multi-line :rows="1" :rows-max="3" placeholder="说点什么吧..."/>
+        <mu-button fab small color="primary" @click="submitReply">
+          <mu-icon value="send"></mu-icon>
+        </mu-button>
+      </div>
       <mu-container class="topic-reply">
         <topic-reply :replies="topic.replies" @onPraise="praiseReply"/>
       </mu-container>
@@ -29,7 +33,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { replyPraise } from '@/api/modules/reply'
+import { replyPraise, createReply } from '@/api/modules/reply'
 import { getTopic } from '@/api/modules/topic'
 import TopicReply from './topic-reply'
 
@@ -37,7 +41,7 @@ export default {
   name: 'topicDetail',
   components: { TopicReply },
   computed: {
-    ...mapGetters(['accesstoken']),
+    ...mapGetters(['accesstoken', 'userInfo']),
     scrollElement () {
       return this.$refs.contentCard.$el
     }
@@ -47,20 +51,19 @@ export default {
       headerHide: false,
       topicId: null,
       topic: { author: {}, replies: [] },
-      saveScrollTop: 0
+      saveScrollTop: 0,
+      reply: ''
     }
   },
   methods: {
     async praiseReply (replyId) {
-      if (!this.accesstoken) {
-        this.$alert('请先登录，登陆后即可点赞。')
-      } else {
+      if (this.checkAuth('请先登录，登陆后即可点赞。')) {
         let { success, action } = await replyPraise(replyId, this.accesstoken)
         if (success) {
           let reply = this.topic.replies.find(item => item.id === replyId)
           reply.is_uped = action === 'up'
-          let index = reply.ups.findIndex(this.accesstoken)
-          index === -1 ? reply.ups.push(this.accesstoken) : reply.ups.splice(index, 1)
+          let index = reply.ups.indexOf(this.userInfo.id)
+          index === -1 ? reply.ups.push(this.userInfo.id) : reply.ups.splice(index, 1)
         }
       }
     },
@@ -69,10 +72,47 @@ export default {
       this.topic = await getTopic(id)
       loading.close()
     },
+    async submitReply () {
+      if (this.checkAuth('请先登录，登陆后即可评论。')) {
+        if (!this.reply.length || this.reply === null) {
+          this.$alert('请输入评论内容')
+          return false
+        }
+        if (this.reply.length < 3) {
+          this.$alert('至少说 3 个字吧..')
+          return false
+        }
+        // this.$alert(this.reply)
+        let topicId = this.$route.params.id
+        let { success, reply_id: replyId } = await createReply(topicId, this.reply, this.accesstoken)
+
+        if (success) {
+          let { replies } = this.topic
+          replies.push({
+            id: replyId,
+            author: this.userInfo,
+            content: `<div class="markdown-text"><p>${this.reply}</p></div>`,
+            ups: [],
+            create_at: new Date(),
+            reply_id: null,
+            is_uped: false
+          })
+          this.reply = ''
+          this.$toast.success('回复成功.')
+        }
+      }
+    },
     setScrollTop () {
       let currentScrollTop = this.scrollElement.scrollTop
       this.headerHide = currentScrollTop > this.saveScrollTop
       this.saveScrollTop = currentScrollTop
+    },
+    checkAuth (errorMsg = '该操作需要登录,请先登录.') {
+      if (!this.accesstoken) {
+        this.$alert(errorMsg)
+        return false
+      }
+      return true
     },
     bindScrollEvent () {
 
@@ -161,4 +201,8 @@ export default {
         background: white
         line-height: 4rem
         margin-bottom 10px
+        .reply-input
+          margin 0 .8rem
+          width 100%
+          padding .8rem 0
 </style>

@@ -10,9 +10,7 @@ import { getToken } from '@/utils/token'
  * limit Number 每一页的主题数量
  * mdrender String 当为 false 时，不渲染。默认为 true，渲染出现的所有 markdown 格式文本。
  */
-export const getTopics = ({ tab = 'all', page = 1, limit = pageSize } = {}) => {
-  return axios.request({ url: '/topics', method: 'get', params: { tab, page, limit } })
-}
+export const getTopics = ({ tab = 'all', page = 1, limit = pageSize } = {}) => axios.get('/topics', { params: { tab, page, limit } })
 
 /**
  * get /topic/:id 主题详情
@@ -25,5 +23,5 @@ export const getTopic = (id, accesstoken) => {
   if (token && accesstoken) {
     params.accesstoken = token
   }
-  return axios.request({ url: `/topic/${id}`, method: 'get', params })
+  return axios.get(`/topic/${id}`, { params })
 }
