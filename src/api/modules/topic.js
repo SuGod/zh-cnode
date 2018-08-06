@@ -25,3 +25,23 @@ export const getTopic = (id, accesstoken) => {
   }
   return axios.get(`/topic/${id}`, { params })
 }
+
+/**
+ * post /topics 新建主题
+ * @param topic
+ */
+export const createTopic = (topic) => axios.post('/topics', { ...topic })
+
+/**
+ * post /topic_collect/collect 收藏主题
+ * @param topic_id
+ * @returns {AxiosPromise<any>}
+ */
+export const collectTopic = (topic_id) => axios.post('/topic_collect/collect', { topic_id })
+
+/**
+ * post /topic_collect/de_collect 取消主题
+ * @param topic_id
+ * @returns {AxiosPromise<any>}
+ */
+export const cancelCollectTopic = (topic_id) => axios.post('/topic_collect/de_collect', { topic_id })

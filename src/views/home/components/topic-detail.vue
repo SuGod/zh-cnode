@@ -1,15 +1,15 @@
 <template>
   <div class="topic-card">
     <mu-appbar :class="['header-bar',{hide:headerHide}]">
-      <mu-button icon slot="left" @click="$router.back()">
-        <mu-icon value="arrow_back"></mu-icon>
+      <mu-button icon slot="left" to="/">
+        <mu-icon value="arrow_back"/>
       </mu-button>
       <div style="display: flex;align-items: center;">
         <mu-avatar><img :src="topic.author.avatar_url"></mu-avatar>
         <span style="font-size: 1rem;color: #999;">{{topic.author.loginname}}</span>
       </div>
-      <mu-button icon slot="right">
-        <mu-icon value="more_vert"></mu-icon>
+      <mu-button icon slot="right" @click="collect" v-if="accesstoken">
+        <mu-icon :value="topic.is_collect ?'star':'star_border'"/>
       </mu-button>
     </mu-appbar>
     <mu-card class="topic-card-content" ref="contentCard">
@@ -34,7 +34,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { replyPraise, createReply } from '@/api/modules/reply'
-import { getTopic } from '@/api/modules/topic'
+import { getTopic, collectTopic, cancelCollectTopic } from '@/api/modules/topic'
 import TopicReply from './topic-reply'
 
 export default {
@@ -56,6 +56,22 @@ export default {
     }
   },
   methods: {
+    //收藏主题
+    async collect () {
+      let result = {}
+      if (this.topic.is_collect) {
+        result = await cancelCollectTopic(this.topic.id)
+      } else {
+        result = await collectTopic(this.topic.id)
+      }
+
+      if (result.success) {
+        this.$toast.success('操作成功!')
+        this.topic.is_collect = !this.topic.is_collect
+      } else {
+        this.$toast.error('操作失败!')
+      }
+    },
     async praiseReply (replyId) {
       if (this.checkAuth('请先登录，登陆后即可点赞。')) {
         let { success, action } = await replyPraise(replyId, this.accesstoken)

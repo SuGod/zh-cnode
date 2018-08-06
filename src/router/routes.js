@@ -23,10 +23,16 @@ export default [
         component: () => _import('user/user-center')
       },
       {
+        path: 'message',
+        name: 'message',
+        mate: {},
+        component: () => _import('message')
+      },
+      {
         path: 'search',
         name: 'search',
         mate: {},
-        component: () => _import('search/search')
+        component: () => _import('search')
       }
     ]
   },
@@ -35,5 +41,11 @@ export default [
     name: 'topicDetail',
     mate: {},
     component: () => _import('home/components/topic-detail')
+  },
+  {
+    path: '/createTopic',
+    name: 'createTopic',
+    mate: {},
+    component: () => _import('topic')
   }
 ]

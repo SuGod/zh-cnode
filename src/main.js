@@ -3,20 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import '@/assets/styles/global.styl'
-
-// import VueAwesomeSwiper from 'vue-awesome-swiper'
-// require styles
-// import 'swiper/dist/css/swiper.css'
-
-// Vue.use(VueAwesomeSwiper, /* { default global options } */)
-
 // Material Design 推荐使用 Roboto 字体
 import 'typeface-roboto'
 // muse-ui
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
-
+import '@/assets/styles/global.styl'
 //主题
 import theme from 'muse-ui/lib/theme'
 // 全局加载进度条

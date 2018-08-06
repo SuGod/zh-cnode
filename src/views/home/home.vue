@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <!-- @change="tabChange"全部 精华 分享 问答 招聘 客户端测试     :value.sync="active"-->
     <mu-tabs color="primary" :value.sync="active">
       <mu-tab v-for="tab of tabs" :key="tab.name">{{tab.title}}</mu-tab>
     </mu-tabs>
@@ -19,12 +18,15 @@
           </swiper-item>
         </swiper>
       </keep-alive>
+      <mu-button fab small color="primary" class="new-topic" to="/createTopic" v-if="accesstoken">
+        <mu-icon value="add"></mu-icon>
+      </mu-button>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { Swiper, SwiperItem } from '@/components/swiper/'
 import TabPage from './components/tab-page'
 import { getTopics } from '@/api/modules/topic'
@@ -34,7 +36,8 @@ const tabs = [
   { title: '精华', path: '/home/good', name: 'good', topics: [], page: 1, scrollTop: 0 },
   { title: '分享', path: '/home/share', name: 'share', topics: [], page: 1, scrollTop: 0 },
   { title: '问答', path: '/home/ask', name: 'ask', topics: [], page: 1, scrollTop: 0 },
-  { title: '招聘', path: '/home/job', name: 'job', topics: [], page: 1, scrollTop: 0 }
+  // { title: '招聘', path: '/home/job', name: 'job', topics: [], page: 1, scrollTop: 0 },
+  { title: '测试', path: '/home/dev', name: 'dev', topics: [], page: 1, scrollTop: 0 }
 ]
 
 export default {
@@ -46,6 +49,9 @@ export default {
       activeTab: tabs[0],
       loading: false
     }
+  },
+  computed: {
+    ...mapGetters(['accesstoken'])
   },
   watch: {
     active (index) {
@@ -102,9 +108,14 @@ export default {
     padding 0
     overflow hidden
     .mu-tabs-content
+      position relative
       background-color #f5f5f5
       height calc(100% - 48px)
       /*overflow-y auto*/
+      .new-topic
+        position fixed
+        right 1rem
+        bottom 4.5rem
       .mu-text
         font-size 16px
 </style>

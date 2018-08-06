@@ -14,7 +14,7 @@ export const getUserInfo = (loginname) => axios.get(`/user/${loginname}`)
  */
 export const getCollect = (loginname) => axios.get(`/topic_collect/${loginname}`)
 
-export const getUserDateilCount = async (loginname) => {
+export const getUserDetailCount = async (loginname) => {
   let [userInfo, collect, messages] = await Promise.all([getUserInfo(loginname), getCollect(loginname), getMessageCount()])
   return {
     score: String(userInfo.score),
@@ -30,3 +30,11 @@ export const getUserDateilCount = async (loginname) => {
  * @param accesstoken
  */
 export const authToken = (accesstoken) => axios.post('/accesstoken', { accesstoken })
+
+/**
+ * get /topic_collect/:loginname 用户所收藏的主题
+ * @param loginname
+ * @returns {*}
+ */
+export const getUserCollect = (loginname) => axios.get(`/topic_collect/${loginname}`)
+

@@ -20,17 +20,20 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use(config => {
-  let accesstoken = TokenUtils.getToken()
-  // console.log(config.url.indexOf('/accesstoken'))
-  //config.method === 'post' &&
+  // 如果请求地址为验证 token
   if (config.url.indexOf('/accesstoken') === -1) {
-    if (accesstoken && config.method === 'post') {
-      config.data = { ...config.data, accesstoken }
-    } else if (accesstoken && config.method === 'get') {
-      config.params = { ...config.params, accesstoken }
-    } else {
-      return Promise.reject('请登录后再操作.')
+    let accesstoken = TokenUtils.getToken()
+    if (accesstoken) {
+      let { method } = config
+      if (method === 'post') {
+        config.data = { ...config.data, accesstoken }
+      } else if (method === 'get') {
+        config.params = { ...config.params, accesstoken }
+      }
     }
+   /* else {
+      return Promise.reject('请登录后再操作.')
+    }*/
   }
   return config
 }, error => {

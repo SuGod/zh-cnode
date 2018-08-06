@@ -3,7 +3,8 @@ import { authToken } from '@/api/modules/user'
 export default {
   state: {
     accesstoken: localStorage.getItem('accesstoken'),
-    userInfo: JSON.parse(localStorage.getItem('userinfo'))
+    userInfo: JSON.parse(localStorage.getItem('userinfo')),
+    messages: []
   },
   mutations: {
     SET_ACCESSTOKEN (state, token) {
@@ -19,7 +20,6 @@ export default {
       localStorage.setItem('accesstoken', token)
     },
     checkToken ({ commit }, accesstoken) {
-      console.log(this)
       return new Promise(async (resolve, reject) => {
         authToken(accesstoken).then(res => {
           let { success, avatar_url, id, loginname } = res
@@ -33,6 +33,10 @@ export default {
           reject(error)
         })
       })
+    },
+    logout ({ commit }) {
+      window.localStorage.clear()
+      window.location.reload()
     }
   }
 }
