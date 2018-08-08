@@ -2,7 +2,7 @@
   <mu-paper :z-depth="1" class="user-center">
     <mu-appbar color="primary">我</mu-appbar>
     <mu-list textline="two-line">
-      <mu-list-item v-if="accesstoken">
+      <mu-list-item button v-if="accesstoken">
         <mu-list-item-action>
           <mu-avatar>
             <img :src="userInfo.avatar_url">
@@ -15,7 +15,7 @@
           <mu-icon value="chevron_right"/>
         </mu-list-item-action>
       </mu-list-item>
-      <mu-list-item v-else @click.native="prompt">
+      <mu-list-item button v-else @click.native="prompt">
         <mu-list-item-action>
           <mu-avatar>
             <mu-icon value="person"/>
@@ -60,7 +60,7 @@
             <mu-badge :content="userDetailCount.replysCount"/>
           </mu-list-item-action>
         </mu-list-item>
-        <mu-list-item button>
+        <mu-list-item button :to="`/user/collect/${userInfo.loginname}`">
           <mu-list-item-action>
             <mu-icon value="stars"/>
           </mu-list-item-action>
@@ -78,15 +78,6 @@
             <mu-switch v-model="darkTheme" readonly></mu-switch>
           </mu-list-item-action>
         </mu-list-item>
-        <!--<mu-list-item button to="/settings">
-          <mu-list-item-action>
-            <mu-icon value="settings"/>
-          </mu-list-item-action>
-          <mu-list-item-title>设置</mu-list-item-title>
-          <mu-list-item-action>
-            <mu-icon value="chevron_right"></mu-icon>
-          </mu-list-item-action>
-        </mu-list-item>-->
       </mu-list>
     </template>
     <mu-divider/>

@@ -7,7 +7,7 @@
     ref="container"
   >
     <template v-for="topic in topics">
-      <mu-ripple class="topic-box" @click.native="toDetail(topic.id)" :key="topic.id">
+      <mu-ripple class="topic-box" @click.native="$router.push({ path: `/topic/${topic.id}` })" :key="topic.id">
         <mu-flex class="topic-header" justify-content="between">
           <mu-flex class="topic-author">
             <mu-avatar class="author-avatar" :size="18"><img :src="topic.author.avatar_url"></mu-avatar>
@@ -46,19 +46,11 @@ export default {
       default: false
     }
   },
-  filters: {
-    typeFmt: val => types[val]
-  },
   data () {
     return {
       refreshing: false
     }
   },
-  methods: {
-    toDetail (id) {
-      this.$router.push({ path: `/topic/${id}` })
-    }
-  }
 }
 </script>
 

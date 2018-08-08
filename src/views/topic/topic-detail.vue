@@ -1,12 +1,12 @@
 <template>
   <div class="topic-card">
-    <mu-appbar :class="['header-bar',{hide:headerHide}]">
-      <mu-button icon slot="left" to="/">
+    <mu-appbar color="primary" :class="['header-bar',{hide:headerHide}]">
+      <mu-button icon slot="left" @click="$router.back()">
         <mu-icon value="arrow_back"/>
       </mu-button>
       <div style="display: flex;align-items: center;">
         <mu-avatar><img :src="topic.author.avatar_url"></mu-avatar>
-        <router-link style="font-size: 1rem;color: #999;" :to="`/user/${topic.author.loginname}`">{{topic.author.loginname}}</router-link>
+        <router-link style="font-size: 1rem;color: #f5f5f5;" :to="`/user/${topic.author.loginname}`">{{topic.author.loginname}}</router-link>
       </div>
       <mu-button icon slot="right" @click="collect" v-if="accesstoken">
         <mu-icon :value="topic.is_collect ?'star':'star_border'"/>
@@ -35,7 +35,7 @@
 import { mapGetters } from 'vuex'
 import { replyPraise, createReply } from '@/api/modules/reply'
 import { getTopic, collectTopic, cancelCollectTopic } from '@/api/modules/topic'
-import TopicReply from './topic-reply'
+import TopicReply from '@/views/topic/topic-reply'
 
 export default {
   name: 'topicDetail',

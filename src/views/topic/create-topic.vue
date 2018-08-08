@@ -59,7 +59,8 @@ export default {
         let { success, topic_id: topicId } = await createTopic(this.topic)
         if (success) {
           this.$toast.success('发布成功')
-          this.$router.push({ path: `/topic/${topicId}` })
+          // this.$router.push({ path: `/topic/${topicId}` })
+          this.$router.push('/')
         }
       }
     },

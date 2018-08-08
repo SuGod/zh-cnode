@@ -40,18 +40,24 @@ export default [
     path: '/topic/:id',
     name: 'topicDetail',
     mate: {},
-    component: () => _import('home/components/topic-detail')
+    component: () => _import('topic/topic-detail')
   },
   {
     path: '/createTopic',
     name: 'createTopic',
     mate: {},
-    component: () => _import('topic')
+    component: () => _import('topic/create-topic')
   },
   {
     path: '/user/:loginname',
     name: 'userDetail',
     mate: {},
     component: () => _import('user/user-detail')
+  },
+  {
+    path: '/user/collect/:loginname',
+    name: 'userCollect',
+    mate: {},
+    component: () => _import('user/user-collect')
   },
 ]
