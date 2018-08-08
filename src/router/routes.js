@@ -47,5 +47,11 @@ export default [
     name: 'createTopic',
     mate: {},
     component: () => _import('topic')
-  }
+  },
+  {
+    path: '/user/:loginname',
+    name: 'userDetail',
+    mate: {},
+    component: () => _import('user/user-detail')
+  },
 ]

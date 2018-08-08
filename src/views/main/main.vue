@@ -8,7 +8,7 @@
     <mu-bottom-nav class="bottom-nav" :value.sync="shift" shift color="primary">
       <mu-bottom-nav-item to="home" value="home" title="Home" icon="account_balance"></mu-bottom-nav-item>
       <mu-bottom-nav-item to="search" value="search" title="Search" icon="search"></mu-bottom-nav-item>
-      <mu-bottom-nav-item to="message" value="message" title="Message" icon="notifications"></mu-bottom-nav-item>
+      <mu-bottom-nav-item to="message" value="message" title="Message" badge="12" icon="notifications"></mu-bottom-nav-item>
       <mu-bottom-nav-item to="user" value="user" title="User" icon="person"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>

@@ -31,9 +31,9 @@ instance.interceptors.request.use(config => {
         config.params = { ...config.params, accesstoken }
       }
     }
-   /* else {
-      return Promise.reject('请登录后再操作.')
-    }*/
+    /* else {
+       return Promise.reject('请登录后再操作.')
+     }*/
   }
   return config
 }, error => {
@@ -51,8 +51,12 @@ instance.interceptors.response.use(res => {
   }
   return data
 }, (error) => {
-  Toast.error('服务内部错误')
-  // 对响应错误做点什么
+  let { status: errCode, data } = error.response
+  if (errCode === 403) {
+    Toast.error(data.error_msg)
+  } else {
+    Toast.error('服务内部错误')
+  }
   return Promise.reject(error)
 })
 

@@ -9,7 +9,9 @@
             <mu-avatar><img :src="reply.author.avatar_url"></mu-avatar>
           </div>
           <div class="reply-item-content">
-            <div class="reply-title">{{reply.author.loginname}}</div>
+            <div class="reply-title">
+              <router-link :to="`/user/${reply.author.loginname}`">{{reply.author.loginname}}</router-link>
+            </div>
             <div class="reply-content" v-html="reply.content" v-highlight></div>
             <div class="reply-info">
             <span @click="$emit('onPraise',reply.id)">

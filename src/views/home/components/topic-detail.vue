@@ -6,7 +6,7 @@
       </mu-button>
       <div style="display: flex;align-items: center;">
         <mu-avatar><img :src="topic.author.avatar_url"></mu-avatar>
-        <span style="font-size: 1rem;color: #999;">{{topic.author.loginname}}</span>
+        <router-link style="font-size: 1rem;color: #999;" :to="`/user/${topic.author.loginname}`">{{topic.author.loginname}}</router-link>
       </div>
       <mu-button icon slot="right" @click="collect" v-if="accesstoken">
         <mu-icon :value="topic.is_collect ?'star':'star_border'"/>

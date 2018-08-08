@@ -1,10 +1,11 @@
 import { authToken } from '@/api/modules/user'
+import { getMessageCount } from '@/api/modules/message'
 
 export default {
   state: {
     accesstoken: localStorage.getItem('accesstoken'),
     userInfo: JSON.parse(localStorage.getItem('userinfo')),
-    messages: []
+    messageCount: 0
   },
   mutations: {
     SET_ACCESSTOKEN (state, token) {
@@ -12,12 +13,20 @@ export default {
     },
     UPDATE_USER_INFO (state, userInfo) {
       state.userInfo = { ...state.userInfo, ...userInfo }
+    },
+    UPDATE_MESSAGE_COUNT (state, count) {
+      state.messageCount = count
     }
   },
   actions: {
     setToken ({ commit }, token) {
       commit('SET_ACCESSTOKEN', token)
       localStorage.setItem('accesstoken', token)
+    },
+    unreadMessageCount ({ commit }) {
+      getMessageCount().then(res => {
+        console.log(res)
+      })
     },
     checkToken ({ commit }, accesstoken) {
       return new Promise(async (resolve, reject) => {
